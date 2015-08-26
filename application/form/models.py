@@ -59,7 +59,7 @@ class Application(models.Model):
 		title = "%s submitted"%self.fullName
 		message = "New folder uploaded here https://drive.google.com/drive/u/0/folders/%s"%folder
 		messageHTML = "New folder uploaded <a href='https://drive.google.com/drive/u/0/folders/%s'> here </a>"%folder
-		send_mail(title,message,"websitemicheal@gmail.com" ,["bohdan@alsocollective.com"], fail_silently=False, html_message=messageHTML)
+		send_mail(title,message,"orthosickkids@gmail.com" ,[settings.SHARE_WITH_THIS_USER], fail_silently=False, html_message=messageHTML)
 		# email location is "https://drive.google.com/drive/u/0/folders/%s?id=%s"%(folder,folder)
 
 		super(Application, self).save(*args, **kwargs)
