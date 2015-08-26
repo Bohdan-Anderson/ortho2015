@@ -1,0 +1,140 @@
+
+$small: 480px;
+$medium: 768px;
+$inbetween: 900px;
+$large: 1120px;
+
+$min: min-width;
+$max: max-width;
+
+$blue:rgb(18,35,80);
+$bluegrey:rgb(90,109,146);
+$yellow:rgb(248,218,105);
+
+$white: #fff;
+$black: #222;
+$darkgrey: #555;
+$lightgrey: rgb(223,223,223);
+$grey: rgb(147,152,170);
+
+
+$width: 90%;
+$indsideWidth: 1000px;
+$min-width:500px;
+
+.center{
+	width: $width;
+	max-width: $indsideWidth;
+	margin: 0 auto;	
+}
+.bolder{
+	font-size: 1em;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+
+@function R2P($size) {
+	$pxSize: $size * 16;
+	@return $pxSize + px;
+}
+
+@mixin opacity($opacity) {
+	opacity: $opacity;
+	$opacity-ie: $opacity * 100;
+	filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+@mixin at-query ($constraint, $viewport1, $viewport2:null) {
+	@if $constraint == $min {
+		@media screen and ($min: $viewport1) {
+			@content;
+		}
+	} @else if $constraint == $max {
+		@media screen and ($max: $viewport1) {
+			@content;
+		}
+	} @else {
+		@media screen and ($min: $viewport1) and ($max: $viewport2) {
+			@content;
+		}
+	}
+}
+
+@mixin vendorize($name, $argument) {
+	-webkit-#{$name}: #{$argument};
+	-ms-#{$name}: #{$argument};
+	-moz-#{$name}: #{$argument};
+	-o-#{$name}: #{$argument};
+	#{$name}: #{$argument};
+}
+
+@mixin transition($transition-property, $transition-time, $method) {
+	-webkit-transition: $transition-property $transition-time $method;
+	-moz-transition: $transition-property $transition-time $method;
+	-ms-transition: $transition-property $transition-time $method;
+	-o-transition: $transition-property $transition-time $method;
+	transition: $transition-property $transition-time $method;
+}
+
+@mixin retina () {
+	@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+		@content;
+	}
+}
+
+@mixin keyframes($animation-name) {
+	@-webkit-keyframes $animation-name {
+		@content;
+	}
+	@-moz-keyframes $animation-name {
+		@content;
+	}
+	@keyframes $animation-name {
+		@content;
+	}
+}
+
+@mixin animation($str) {
+	-webkit-animation: #{$str};
+}
+
+@mixin imageizer($name) {
+
+	background-image:url(/assets/pic/#{$name}-large-o@1x.jpg);
+	@media only screen and (max-width:640px){
+		background-image:url(/assets/pic/#{$name}-small-o@1x.jpg);
+		@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+			background-image:url(/assets/pic/#{$name}-small-r@2x.jpg);
+		}
+	}
+
+	@media only screen and (min-width:640px){
+		background-image:url(/assets/pic/#{$name}-medium-o@1x.jpg);
+		@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+			background-image:url(/assets/pic/#{$name}-medium-r@2x.jpg);
+		}
+	}
+	@media only screen and (min-width:1024px){
+		background-image:url(/assets/pic/#{$name}-large-o@1x.jpg);
+		@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+			background-image:url(/assets/pic/#{$name}-large-r@2x.jpg);
+		}
+	}
+}
+@mixin imageie($name){
+	background-image:url(/assets/pic/#{$name}-ie.jpg);
+}
+@mixin imageizerSmall($name){
+	background-image:url(/assets/pic/#{$name}-small-o@1x.jpg);
+	@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+		background-image:url(/assets/pic/#{$name}-small-r@2x.jpg);
+	}
+	@media only screen and (min-width:640px){
+		background-image:url(/assets/pic/#{$name}-medium-o@1x.jpg);
+		@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+			background-image:url(/assets/pic/#{$name}-medium-r@2x.jpg);
+		}
+	}	
+}
+

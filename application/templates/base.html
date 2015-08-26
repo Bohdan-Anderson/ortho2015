@@ -1,0 +1,33 @@
+{% load staticfiles %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" class="">
+<head>
+	<meta charset="utf-8">
+	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=10.0,user-scalable=no" name="viewport">
+
+	<link rel="stylesheet" type="text/css" href="{% static "css/style.min.css"%}">
+	<title>{% block pageName %}Burdock{% endblock pageName %}</title>
+	<script src="//use.typekit.net/whd6btz.js"></script>
+	<script>try{Typekit.load({ async: true });}catch(e){}</script>
+</head>
+<body>
+
+	<div id="wrapper">
+		{% block content %}
+			
+		{% endblock content %}
+	</div>
+
+	{% block script %}
+		<script type="text/javascript" src="{% static "js/lib/jquery.min.js"%}"></script>
+		<script type="text/javascript" src="{% static "js/script.js"%}"></script>
+		<script type="text/javascript" src="{% static "js/lib/jquery.form.min.js" %}"></script>
+		<script type="text/javascript">
+			app.init();
+			// $("#yes_na").click();
+		</script>
+	{% endblock script %}	
+</body>
+</html>
