@@ -107,8 +107,10 @@ def upLoadToGD(service,uploadedName,folder,toBeName,fileType):
 def createFolder(service, newName):
 	body = {
 		'title': newName,
-		'mimeType': "application/vnd.google-apps.folder"
+		'mimeType': "application/vnd.google-apps.folder",
 	}
+	body['parents'] = [{'id': settings.SHARE_FOLDER}]
+
 	newFolder = service.files().insert(body=body).execute()
 	try:
 		insert_permission(service,newFolder["id"],settings.SHARE_WITH_THIS_USER,"user","writer")
