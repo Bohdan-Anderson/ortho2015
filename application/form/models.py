@@ -15,7 +15,7 @@ class UploadedFile(models.Model):
 		return fileName
 		return "location.pdf"
 	
-	theFile = models.FileField(upload_to="",blank=True)#location,blank=True)	
+	theFile = models.FileField(upload_to=location,blank=True)#"",blank=True)#	
 	extention = models.CharField(max_length=30,blank=True)
 
 	def __unicode__(self):
