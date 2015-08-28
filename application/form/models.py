@@ -27,6 +27,8 @@ class Application(models.Model):
 	fileName = models.SlugField(blank=True)
 	uploaded = models.DateTimeField(auto_now=True)
 
+	fellowship = models.CharField(max_length=500)
+
 	fullName = models.CharField(max_length=500)
 	email = models.CharField(max_length=500)
 	phone = models.CharField(max_length=500)
@@ -49,7 +51,7 @@ class Application(models.Model):
 		dateString = datetime.datetime.now().strftime("%y-%m-%d-%H-%M")
 
 		
-		folder = createFolder(service, "%s-%s"%(slug, dateString))["id"]
+		folder = createFolder(service, "%s-%s-%s"%(slug, dateString,self.fellowship))["id"]
 		formData(service,slug,dateString,self,folder)
 		upLoadToGD(service, self.cv, folder, "cv.pdf", "application/pdf")
 		upLoadToGD(service, self.portrait, folder, "portrait.jpg", "image/jpeg")

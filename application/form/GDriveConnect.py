@@ -119,7 +119,7 @@ def createFolder(service, newName):
 	return newFolder
 
 def formData(service,name,dateString,data,folder):
-	out = "Full Name:\t%s\nEmail:\t\t%s\nPhone:\t\t%s"%(data.fullName,data.email,data.phone)
+	out = "Full Name:\t%s\nEmail:\t\t%s\nPhone:\t\t%s\nFellowship:\t%s"%(data.fullName,data.email,data.phone,data.fellowship)
 	print out
 	newFile = insert_text(service,"%s-%s-details"%(dateString,name),"%s's data"%data.fullName,folder,"application/octet-stream",io.BytesIO(out.encode('utf-8')))
 	try:

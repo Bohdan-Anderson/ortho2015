@@ -41,7 +41,7 @@ class UploadForm(ModelForm):
 class ApplicationForm(ModelForm):
 	class Meta:
 		model = Application
-		fields = ['fullName','email','phone',"cv","portrait","reference_1","reference_2","reference_3","letter_of_intent"]
+		fields = ['fellowship','fullName','email','phone',"cv","portrait","reference_1","reference_2","reference_3","letter_of_intent"]
 
 # class ApplicationForm(ModelForm):
 # 	def __init__(self, *args, **kwargs):

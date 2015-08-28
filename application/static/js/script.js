@@ -109,7 +109,8 @@ app = {
 				app.submit.main.clearAllError();
 				var fileNames = app.submit.fileNames.concat(['fullName',
 						'email',
-						'phone'
+						'phone',
+						'fellowship'
 					]),
 					error = false;
 				for (var i = fileNames.length - 1; i >= 0; i--) {

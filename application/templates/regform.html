@@ -29,9 +29,9 @@
 		<hr></hr>
 		<form action"/" method="post" enctype="multipart/form-data" id="main-form">
 			{% csrf_token %}
-			<div id="fellowship_form">
-				<div class="error_onsend"></div>
+			<div id="fellowship-form">
 				<label for="id_fellowship">Select Fellowship</label>
+				<div class="error_onsend"></div>
 				<select id="id_fellowship" name="fellowship"> 
 					<option value="paediatric">Paediatric</option>
 					<option value="spine">Spine</option>
