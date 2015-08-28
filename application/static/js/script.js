@@ -42,7 +42,8 @@ app = {
 			"portrait",
 			"reference_1",
 			"reference_2",
-			"reference_3"
+			"reference_3",
+			"letter_of_intent"
 		],
 		init: function() {
 			$('#main-form').submit(app.submit.main.main);
@@ -95,8 +96,8 @@ app = {
 				}
 			},
 			complete: function(xhr, textStatus, sent) {
-				console.log(xhr.responseText);
 				$("html").removeClass("loading_form").addClass("loaded_form");
+				$("#study_in_canada").html("");
 			},
 			clearAllError: function() {
 				$(".error_field").each(function(i, val) {
@@ -108,8 +109,7 @@ app = {
 				app.submit.main.clearAllError();
 				var fileNames = app.submit.fileNames.concat(['fullName',
 						'email',
-						'phone',
-						'statement'
+						'phone'
 					]),
 					error = false;
 				for (var i = fileNames.length - 1; i >= 0; i--) {
@@ -151,7 +151,9 @@ app = {
 				console.log(percentComplete + "%")
 			},
 			error: function(jqXHR, textStatus, errorThrown, sent, ohter2) {
+				console.log(jqXHR)
 				var responce = $.parseJSON(jqXHR.responseText);
+				console.log(responce)
 				// app.submit.main.clearAllError();
 				var text = ""
 				for (var key in responce) {
@@ -160,6 +162,11 @@ app = {
 					}
 				}
 				$("#" + sent[0].id).removeClass("file_loading file_loaded").addClass("error_onsend");
+				if (sent[0].id == "theFile_portrait") {
+					text += " This field only accepts .jpg file type. Please submit a .jpg file type.";
+				} else {
+					text += " This field only accepts .pdf file type. Please submit a .pdf file type.";
+				}
 				$("#" + sent[0].id + " .error_field").html(text);
 			},
 			complete: function(xhr, textStatus, sent) {

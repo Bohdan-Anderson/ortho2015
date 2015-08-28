@@ -5,8 +5,6 @@ from django.template.context_processors import csrf
 import os, datetime,json
 from form import forms
 
-
-
 def home(request):
 	print request.method
 	if request.method == 'POST':
@@ -25,7 +23,7 @@ def home(request):
 				return HttpResponse(outCome.pk)
 			return HttpResponse(form.errors.as_json(),content_type='application/json',status="400",reason="something wrong with the form")
 		else :
-			return HttpResponse(json.dumps({"error":"need to submit something"}),content_type='application/json',status="400",reason="you need to submit something")
+			return HttpResponse(json.dumps({"theFile": [{"message": "This field cannot be empty", "code": ""}]}),content_type='application/json',status="400",reason="you need to submit something")
 		
 	form = forms.ApplicationForm()
 	return render(request, 'regform.html', { "form":form })

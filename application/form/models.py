@@ -4,6 +4,8 @@ import os, datetime
 from django.template.defaultfilters import slugify
 from form.GDriveConnect import *
 from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+
 
 class UploadedFile(models.Model):
 	def location(self,title):
@@ -13,7 +15,7 @@ class UploadedFile(models.Model):
 		return fileName
 		return "location.pdf"
 	
-	theFile = models.FileField(upload_to=location,blank=True)	
+	theFile = models.FileField(upload_to="",blank=True)#location,blank=True)	
 	extention = models.CharField(max_length=30,blank=True)
 
 	def __unicode__(self):
@@ -21,8 +23,6 @@ class UploadedFile(models.Model):
 	
 
 class Application(models.Model):
-
-
 	slug = models.SlugField(blank=True)
 	fileName = models.SlugField(blank=True)
 	uploaded = models.DateTimeField(auto_now=True)
@@ -31,13 +31,14 @@ class Application(models.Model):
 	email = models.CharField(max_length=500)
 	phone = models.CharField(max_length=500)
 
-	statement = models.TextField(max_length=1000)
+	# statement = models.TextField(max_length=1000)
 
 	cv =  models.ForeignKey(UploadedFile,related_name="cv")
 	portrait = models.ForeignKey(UploadedFile,related_name="portrait")
 	reference_1 = models.ForeignKey(UploadedFile,related_name="reference_1")
 	reference_2 = models.ForeignKey(UploadedFile,related_name="reference_2")
 	reference_3 = models.ForeignKey(UploadedFile,related_name="reference_3")
+	letter_of_intent = models.ForeignKey(UploadedFile,related_name="letter_of_intent")
 
 	def __unicode__(self):
 		return "%s %s"%(self.fullName,self.uploaded)
@@ -55,13 +56,30 @@ class Application(models.Model):
 		upLoadToGD(service, self.reference_1, folder, "reference1.pdf", "application/pdf")
 		upLoadToGD(service, self.reference_2, folder, "reference2.pdf", "application/pdf")
 		upLoadToGD(service, self.reference_3, folder, "reference3.pdf", "application/pdf")
+		upLoadToGD(service, self.letter_of_intent, folder, "letter_of_intent.pdf", "application/pdf")
+
 
 		title = "%s submitted"%self.fullName
-		message = "New folder uploaded here https://drive.google.com/drive/u/0/folders/%s"%folder
-		messageHTML = "New folder uploaded <a href='https://drive.google.com/drive/u/0/folders/%s'> here </a>"%folder
+		message = """
+				Hello!
+				%s has submitted their completed fellowship application. 
+				View their application at: https://drive.google.com/drive/u/0/folders/%s
+				OR 
+				view all available applications at: https://drive.google.com/drive/u/0/folders/0BxArj8ptnN7AXzJ5WEdrZUZQLVU
+				+ + + 
+				For technical issues, please contact: collaborate@alsocollective.com
+			"""%(self.fullName,folder)
+		messageHTML = """
+				Hello!<br><br> 
+				%s has submitted their completed fellowship application.<br><br>
+				View their application at: <a href='https://drive.google.com/drive/u/0/folders/%s'> https://drive.google.com/drive/u/0/folders/%s </a><br><br>
+				OR<br><br>
+				view all available applications at: <a href='https://drive.google.com/drive/u/0/folders/0BxArj8ptnN7AXzJ5WEdrZUZQLVU'> https://drive.google.com/drive/u/0/folders/0BxArj8ptnN7AXzJ5WEdrZUZQLVU </a><br><br>
+				+ + + <br><br>
+				For technical issues, please contact: <a href='mailto:collaborate@alsocollective.com'>collaborate@alsocollective.com</a><br><br>
+			"""%(self.fullName,folder,folder)
 		send_mail(title,message,"orthosickkids@gmail.com" ,[settings.SHARE_WITH_THIS_USER], fail_silently=False, html_message=messageHTML)
-		# email location is "https://drive.google.com/drive/u/0/folders/%s?id=%s"%(folder,folder)
-
+		
 		super(Application, self).save(*args, **kwargs)
 
 

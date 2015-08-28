@@ -11,6 +11,7 @@ class ExtFileField(forms.FileField):
 		super(ExtFileField, self).__init__(*args, **kwargs)
 
 	def clean(self, *args, **kwargs):
+		print self
 		data = super(ExtFileField, self).clean(*args, **kwargs)
 		if data:
 			filename = data.name
@@ -19,7 +20,7 @@ class ExtFileField(forms.FileField):
 			ext = ext[1]
 			ext = ext.lower()
 			if ext not in self.ext_whitelist:
-				raise forms.ValidationError("Filetype '%s' not allowed for this field" % ext)
+				raise forms.ValidationError("Filetype '%s' is not allowed for this field." % ext)
 			elif (data._size > settings.MAX_UPLOAD_SIZE):
 				raise forms.ValidationError("File is too large %s"%data._size)
 
@@ -36,13 +37,19 @@ class UploadForm(ModelForm):
 		model = UploadedFile
 		fields = ['theFile',]
 
-class ApplicationForm(ModelForm):
-	def __init__(self, *args, **kwargs):
-		super(ApplicationForm, self).__init__(*args, **kwargs)
 
+class ApplicationForm(ModelForm):
 	class Meta:
 		model = Application
-		fields = ['fullName','email','phone','statement',"cv","portrait","reference_1","reference_2","reference_3"]
+		fields = ['fullName','email','phone',"cv","portrait","reference_1","reference_2","reference_3","letter_of_intent"]
+
+# class ApplicationForm(ModelForm):
+# 	def __init__(self, *args, **kwargs):
+# 		super(ApplicationForm, self).__init__(*args, **kwargs)
+
+# 	class Meta:
+# 		model = Application
+# 		fields = ['fullName','email','phone','statement',"cv","portrait","reference_1","reference_2","reference_3"]
 
 
 

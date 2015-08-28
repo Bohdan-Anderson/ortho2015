@@ -12,16 +12,20 @@
 
 
 	<div id="first_selection">
+		<h2>SickKids Orthopaedic Fellowship</h2>
+		<hr></hr>
 		<p>Did you complete your residency training from a North American Institution?</p>
 		<button id="yes_na" aria-label="No I did not completed my residency in North American">no</button><button aria-label="Yes I completed my residency in North American" id="no_na">yes</button>
 	</div>
 	<div id="no_study_in_canada" class="hidden">
+		<h2>SickKids Orthopaedic Fellowship</h2>
+		<hr></hr>
 		<p>
 			Please apply through SF Match: <a href="https://www.sfmatch.org/" target="_blank">www.sfmatch.org</a>
 		</p>
 	</div>
 	<div id="study_in_canada" class="hidden">
-		<h2>Required Information</h2>
+		<h2>SickKids Orthopaedic Fellowship Application Form</h2>
 		<hr></hr>
 		<form action"/" method="post" enctype="multipart/form-data" id="main-form">
 			{% csrf_token %}
@@ -34,27 +38,25 @@
 					<option value="trans-canada">Trans-Canada</option>
 				</select>
 			</div>
+
+			<h3>Personal Information</h3>
+
 			<div id="fullName-form">
-					<div class="error_field"></div>
 					<label for="id_fullName">Full Name</label>
+					<div class="error_field"></div>
 					<input id="id_fullName" spellcheck="false" placeholder="John Doe" name="fullName" type="text">
 			</div>
 			<div id="email-form">
-					<div class="error_field"></div>
 					<label for="id_email">Email</label>
+					<div class="error_field"></div>
 					<input id="id_email" spellcheck="false" placeholder="example@gmail.com" name="email" type="email">
 			</div>
 			<div id="phone-form">
-					<div class="error_field"></div>
 					<label for="id_phone">Phone</label>
+					<div class="error_field"></div>
 					<input id="id_phone" spellcheck="false" placeholder="+1 (416) 813–6686" name="phone" type="tel">
 			</div>
-			<div id="statement-form">
-					<div class="error_field"></div>
-					<label for="id_statement">Statement of Intent <span id="cnt">0/500</span></label>
-					<textarea id="id_statement" placeholder="How should we describe what they should write here, How are the other fields" name="statement" maxlength="500" alt="A statement about your self"></textarea>
-			</div>
-		
+
 			<input id="id_cv" name="cv" type="hidden">
 		
 			<input id="id_portrait" name="portrait" type="hidden">
@@ -64,65 +66,73 @@
 			<input id="id_reference_2" name="reference_2" type="hidden">
 		
 			<input id="id_reference_3" name="reference_3" type="hidden">
+
+			<input id="id_letter_of_intent" name="letter_of_intent" type="hidden">
 			<noscript>
 				<input type="submit" value="submit">
 			</noscript>
 
 		</form>
 
-		<h2>Required Files</h2>
-		<hr></hr>
-
 		<form action"/" method="post" id="cv-form" enctype="multipart/form-data">
-			<h3>Personal Information</h3>
 			{% csrf_token %}
-			<div class="error_field"></div>
 			<input class="pknumber" type="number" name="pk" value="-1"></input>
-			<label for="theFile_cv">cv</label>
+			<label for="theFile_cv">CV <small>only submit .pdf file type</small></label>
+			<div class="error_field"></div>
 			<input id="theFile_cv" type="file" name="theFile"></input>
 		</form>
 		<form action"/" method="post" id="portrait-form" enctype="multipart/form-data">
 			{% csrf_token %}
-			<div class="error_field"></div>
 			<input class="pknumber" type="number"></input>
-			<label for="theFile_portrait">portrait</label>
+			<label for="theFile_portrait">Portrait <small>only submit .jpg file type</small></label>
+			<div class="error_field"></div>
 			<input id="theFile_portrait" type="file" name="theFile"></input>
 		</form>
-		<form action"/" method="post" id="reference_1-form" enctype="multipart/form-data">
-			<h3>References</h3>
+
+		<form action"/" method="post" id="letter_of_intent-form" enctype="multipart/form-data">
 			{% csrf_token %}
+			<input class="pknumber" type="number" name="pk" value="-1"></input>
+			<label for="theFile_letter_of_intent">Letter of intent <small>only submit .pdf file type</small></label>
 			<div class="error_field"></div>
+			<input id="theFile_letter_of_intent" type="file" name="theFile"></input>
+		</form>		
+		<h3>References</h3>
+		<form action"/" method="post" id="reference_1-form" enctype="multipart/form-data">
+			{% csrf_token %}
 			<input class="pknumber" type="number"></input>
-			<label for="theFile_reference_1">Attach reference letter 1</label>
+			<label for="theFile_reference_1">Attach reference letter 1 <small>only submit .pdf file type</small></label>
+			<div class="error_field"></div>
 			<input id="theFile_reference_1" type="file" name="theFile"></input>
 		</form>	
 		<form action"/" method="post" id="reference_2-form" enctype="multipart/form-data">
 			{% csrf_token %}
-			<div class="error_field"></div>
 			<input class="pknumber" type="number"></input>
-			<label for="theFile_reference_2">Attach reference letter 2</label>
+			<label for="theFile_reference_2">Attach reference letter 2 <small>only submit .pdf file type</small></label>
+			<div class="error_field"></div>
 			<input id="theFile_reference_2" type="file" name="theFile"></input>
 		</form>
 		<form action"/" method="post" id="reference_3-form" enctype="multipart/form-data">
 			{% csrf_token %}
-			<div class="error_field"></div>
 			<input class="pknumber" type="number"></input>
-			<label for="theFile_reference_3">Attach reference letter 3</label>
+			<label for="theFile_reference_3">Attach reference letter 3 <small>only submit .pdf file type</small></label>
+			<div class="error_field"></div>
 			<input id="theFile_reference_3" type="file" name="theFile"></input>
 		</form>
 		<button id="submit_everything">Submit Application</button>
-
-		<div class="overlay" id="loading_form">
-			<div>
-				<h2>Saving your application... this may take 10-30 seconds</h2>
-			</div>
-		</div>
-		<div class="overlay" id="loaded_form">
-			<div>
-				<h2>Your applicaiton has been submitted thank you.</h2>
-			</div>
+	</div>
+	<div class="overlay" id="loading_form">
+		<div>
+			<h2>Saving your application... this may take 10-30 seconds</h2>
 		</div>
 	</div>
+	<div class="overlay" id="loaded_form">
+		<div>
+			<h2>
+				Your application has been submitted thank you. <br>
+				Read more about the fellowship at <a href="http://sickkidsorthofellowship.ca/">SickKids Orthopaedic Fellowship</a>.
+			</h2>
+		</div>
+	</div>	
 </div>
 
 {% endblock content %}
